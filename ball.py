@@ -3,7 +3,7 @@ from turtle import Turtle
 
 class Ball(Turtle):
 
-    def __init__(self, size):
+    def __init__(self, pos, size):
         super().__init__()
         self.penup()
         self.color("white")
@@ -12,7 +12,8 @@ class Ball(Turtle):
         self.x_move = 5
         self.y_move = 5
         self.setheading(self.towards(1, 1))
-        self.move_speed = 0.02
+        self.move_speed = 0.03
+        self.goto(pos[0], pos[1])
 
     def move(self):
         self.forward(8)

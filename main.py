@@ -11,6 +11,8 @@ paddle_delta_x = paddle_size_x / 2 * 20 + ball_size / 2 * 20
 paddle_delta_y = paddle_size_y / 2 * 20 + ball_size / 2 * 20
 block_size_x = 3.5
 block_size_y = 1.5
+block_delta_x = block_size_x / 2 * 20 + ball_size / 2 * 20
+block_delta_y = block_size_y / 2 * 20 + ball_size / 2 * 20
 
 block_pos_list = [
     (-360, 200), (-280, 200), (-200, 200), (-120, 200), (-40, 200), (40, 200), (120, 200), (200, 200), (280, 200), (360, 200),
@@ -31,7 +33,7 @@ screen.tracer(0)
 
 paddle = Paddle((0, -200), paddle_size_x, paddle_size_y)
 
-ball = Ball(ball_size)
+ball = Ball((0, -180), ball_size)
 
 # Display Blocks
 block_list = []
@@ -57,9 +59,11 @@ while is_game_continue:
     if ball.ycor() > 280 or ball.ycor() < -280:
         ball.bounce_y()
 
-    # Get paddle and ball position
-    paddle_x, paddle_y = paddle.pos()
+    # Get ball position
     ball_x, ball_y = ball.pos()
+
+    # Get paddle position
+    paddle_x, paddle_y = paddle.pos()
 
     # Set paddle collision
     paddle_col_left = paddle_x - paddle_delta_x
@@ -72,6 +76,24 @@ while is_game_continue:
         ball.bounce_by_paddle(paddle.towards(ball))
 
     # TODO: Detect collision with Block
-    # TODO: どのブロックとぶつかっているかをどう検知する？
+    for block in block_list:
+        # Get block position
+        block_x, block_y = block.pos()
+
+        # Set block collision
+        block_col_left = block_x - block_delta_x
+        block_col_right = block_x + block_delta_x
+        block_col_bottom = block_y - block_delta_y
+        block_col_top = block_y + block_delta_y
+
+        # Detect collision with block
+        if block_col_left < ball_x < block_col_right and block_col_bottom < ball_y < block_col_top:
+            if block_col_left < ball_x < block_col_right:
+                ball.bounce_y()
+            elif block_col_bottom < ball_y < block_col_top:
+                ball.bounce_x()
+            block.hideturtle()
+            block_list.remove(block)
+
 
 screen.exitonclick()
