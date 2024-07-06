@@ -3,14 +3,13 @@ from turtle import Turtle
 
 class Paddle(Turtle):
 
-    def __init__(self, x_pos, y_pos, paddle_size_x, paddle_size_y):
+    def __init__(self, pos, size_x, size_y):
         super().__init__()
-
         self.penup()
         self.color("white")
         self.shape("square")
-        self.shapesize(stretch_wid=paddle_size_y, stretch_len=paddle_size_x)
-        self.goto(x_pos, y_pos)
+        self.shapesize(stretch_wid=size_y, stretch_len=size_x)
+        self.goto(pos[0], pos[1])
 
     def go_left(self):
         if self.position()[0] <= -330:

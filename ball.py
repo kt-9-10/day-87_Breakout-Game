@@ -3,12 +3,12 @@ from turtle import Turtle
 
 class Ball(Turtle):
 
-    def __init__(self, ball_size):
+    def __init__(self, size):
         super().__init__()
         self.penup()
         self.color("white")
         self.shape("circle")
-        self.shapesize(stretch_wid=ball_size, stretch_len=ball_size)
+        self.shapesize(stretch_wid=size, stretch_len=size)
         self.x_move = 5
         self.y_move = 5
         self.setheading(self.towards(1, 1))
