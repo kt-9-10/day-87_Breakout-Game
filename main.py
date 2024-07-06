@@ -30,4 +30,13 @@ while is_game_continue:
     if ball.ycor() > 280 or ball.ycor() < -280:
         ball.bounce_y()
 
+    # TODO: 角に当たった時、挙動が変になる
+    # Detect collision with paddle
+    if paddle.pos()[0]-40 <= ball.pos()[0] <= paddle.pos()[0]+40 and paddle.pos()[1]-20 <= ball.pos()[1] <= paddle.pos()[1]+20:
+        ball.bounce_y()
+
+    # TODO: Create Block Class
+    # TODO: Detect collision with Block
+    # TODO: どのブロックとぶつかっているかをどう検知する？
+
 screen.exitonclick()
